@@ -12,15 +12,21 @@ grid = [pygame.Rect(x * TILE , y * TILE , TILE , TILE) for x in range(W) for y i
 
 x , y = 0 , 20
 x1 , y1 = 0 , 0
+l , k = 200 ,140
 screen = pygame.display.set_mode((GAME_RES))  
 kubike = pygame.Surface((20,20))
+limit =pygame.Surface((20,20))
+limit.fill('red')
 mass = [kubike]
 masLen = [[0,0]]
 count = 0
 truar = 0
 coun,spee,limi = 0,100,2000
+asd = True
+konstanta = 0
+
 while True:
-   
+    
     coun += spee
     if coun >= limi:
         coun = 0
@@ -32,14 +38,28 @@ while True:
 
         kubike.fill('white')
         
-        screen.blit(kubike , (x,y))
-        
+        screen.blit(limit,(x,y))
+        let = x,y
+        qwe = l,k
+        if asd == False:
+            konstanta += 1
+        if konstanta == 30:
+            asd = True
+            konstanta = 0
+        if asd == True:
+            screen.blit(kubike , (qwe))    
+            if qwe == let :
+                asd = False
+                mass.append(kubike)
+                masLen.append(qwe)
+                qwe = 0,0
         def chiz(x,y):
             screen.blit(mass[truar],(x,y))
             
         if count > 1:
             for i in range(len(mass)):
                 chiz(masLen[i][0],masLen[i][1])
+                
             truar += 1
             
         if truar >= len(mass):
