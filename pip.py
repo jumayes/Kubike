@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -12,13 +13,19 @@ grid = [pygame.Rect(x * TILE , y * TILE , TILE , TILE) for x in range(W) for y i
 
 x , y = 0 , 20
 x1 , y1 = 0 , 0
-l , k = 200 ,140
 screen = pygame.display.set_mode((GAME_RES))  
 kubike = pygame.Surface((20,20))
 limit =pygame.Surface((20,20))
 limit.fill('red')
 mass = [kubike]
 masLen = [[0,0]]
+l ,k = random.randint(0,1000),random.randint(0,600)
+
+if l % 20 >0:
+    l = l-(l%20) 
+if k % 20 >0:
+    k = k-(k%20) 
+    
 count = 0
 truar = 0
 coun,spee,limi = 0,100,2000
@@ -39,13 +46,25 @@ while True:
         kubike.fill('white')
         
         screen.blit(limit,(x,y))
+        
         let = x,y
-        qwe = l,k
+        
+        
         if asd == False:
             konstanta += 1
-        if konstanta == 30:
-            asd = True
+        if konstanta == 15:
             konstanta = 0
+            
+            l ,k = random.randint(0,1000),random.randint(0,600)
+
+            if l % 20 >0:
+                l = l-(l%20) 
+            if k % 20 >0:
+                k = k-(k%20) 
+            asd = True
+            
+        qwe = l,k
+                
         if asd == True:
             screen.blit(kubike , (qwe))    
             if qwe == let :
@@ -73,7 +92,7 @@ while True:
             x1 = -20
         elif x <= 0:
             x1 = 20
-        elif y >= 500:
+        elif y >= 600:
             y1 = -20
         elif y <= 0:
             y1 = 20
